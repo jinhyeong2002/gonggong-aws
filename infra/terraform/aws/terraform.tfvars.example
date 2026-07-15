@@ -1,0 +1,35 @@
+aws_region   = "ap-northeast-2"
+project_name = "gonggong"
+environment  = "demo"
+
+# Cost-conscious MVP default:
+# - false: ECS tasks run in public subnets with only ALB ingress allowed by SG.
+# - true: ECS tasks run in private app subnets and use a NAT Gateway for outbound API calls.
+enable_nat_gateway = false
+
+desired_count = 1
+task_cpu      = 1024
+task_memory   = 2048
+
+db_instance_class     = "db.t4g.micro"
+db_allocated_storage  = 20
+skip_final_snapshot   = true
+health_check_path     = "/actuator/health"
+ecs_health_check_grace_period_seconds = 180
+
+# Leave empty to use the ECR repository created by this stack with the latest tag.
+container_image = ""
+
+# Set this after creating an ACM certificate in the same region.
+certificate_arn = ""
+
+# Optional. Leave empty to skip customs confirmation lookup.
+customs_confirmation_api_url = ""
+
+# Use "update" for the first demo bootstrap on an empty RDS, then switch to "validate".
+spring_jpa_hibernate_ddl_auto = "validate"
+
+pgvector_initialize_schema = false
+hsk_embedding_initialize  = false
+hsk_dataset_initialize    = true
+tariff_dataset_initialize = true
